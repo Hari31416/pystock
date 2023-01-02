@@ -1,1 +1,1 @@
-include *.ipynb *.txt
+include *.ipynb *.txt *.toml
