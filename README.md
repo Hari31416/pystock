@@ -5,8 +5,10 @@ A small python library for stock market analysis. Especially for portfolio optim
 ## Installation
 
 ```bash
-pip install pystock
+pip install pystock0
 ```
+
+> Note: The library is still in development, so the version number is 0. You will need to call `pip install pystock0` to install the library. However, you can import the library as `import pystock`.
 
 After installation, you can import the library as follows:
 
@@ -19,8 +21,8 @@ import pystock
 The end goal of the library is to provide a simple interface for portfolio optimization. The library is still in development, so the interface is not yet stable. The following example shows how to use the library to optimize a portfolio of stocks.
 
 ```python
-from pysotck.portfolio import Portfolio
-from pystco.models.import Model
+from pystock.portfolio import Portfolio
+from pystock.models import Model
 
 #Creating the benchmark and stocks
 benchmark_dir = "Data/GSPC.csv"
@@ -60,8 +62,23 @@ model.add_portfolio(pt, weights="equal")
 # Optimizing the portfolio using CAPM
 risk = 0.1
 model_ = "capm"
-res = model.optimize_portfolio(m, risk=risk, model=model_)
+res = model.optimize_portfolio(risk=risk, model=model_)
 print(res)
 ```
+
+```output
+Optimized successfully.
+Expected return: 1.1155%
+Variance: 0.5000%
+Expected weights:
+--------------------
+AAPL: 47.20%
+MSFT: 0.00%
+GOOG: 36.08%
+TSLA: 16.73%
+{'weights': array([0.4719528 , 0.        , 0.36076392, 0.16728327]), 'expected_return': 1.1154876799508255, 'variance': 0.5000100787030565, 'std': 0.7071139078699107}
+```
+
+## More Examples
 
 For more examples, please refer to the notebook [Working_With_pystock.ipynb](Working_With_pystock.ipynb). Also have a look at [Downloading_Data.ipynb](Downloading_Data.ipynb).
