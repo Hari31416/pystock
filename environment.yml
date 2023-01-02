@@ -1,0 +1,14 @@
+name: pystock
+
+dependencies:
+  - python>=3.7
+  - pip
+  - scipy
+  - pandas
+  - statsmodels
+  - plotly
+  - beautifulsoup4
+  - pip:
+      - yfinance
+      - requests
+      - tabulate

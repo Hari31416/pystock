@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>pystock &#8212; pystock 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pystock package" href="pystock.html" />
+    <link rel="prev" title="Welcome to pystock’s documentation!" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pystock.html" title="pystock package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to pystock’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pystock 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pystock</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="pystock">
+<h1>pystock<a class="headerlink" href="#pystock" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pystock.html">pystock package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pystock.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystock.html#module-pystock.exceptions">pystock.exceptions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.exceptions.ColumnMismatch"><code class="docutils literal notranslate"><span class="pre">ColumnMismatch</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.exceptions.ColumnNotFound"><code class="docutils literal notranslate"><span class="pre">ColumnNotFound</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.exceptions.EmptyPortfolio"><code class="docutils literal notranslate"><span class="pre">EmptyPortfolio</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.exceptions.NoPortfolioCreated"><code class="docutils literal notranslate"><span class="pre">NoPortfolioCreated</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.exceptions.NotLoadedError"><code class="docutils literal notranslate"><span class="pre">NotLoadedError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.exceptions.PortfolioExists"><code class="docutils literal notranslate"><span class="pre">PortfolioExists</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.exceptions.StockException"><code class="docutils literal notranslate"><span class="pre">StockException</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pystock.html#module-pystock.fff">pystock.fff module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.fff.FamaFrenchFactors"><code class="docutils literal notranslate"><span class="pre">FamaFrenchFactors</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.fff.FamaFrenchFactors.calculate_mean_values"><code class="docutils literal notranslate"><span class="pre">FamaFrenchFactors.calculate_mean_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.fff.FamaFrenchFactors.change_frequency"><code class="docutils literal notranslate"><span class="pre">FamaFrenchFactors.change_frequency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.fff.FamaFrenchFactors.download"><code class="docutils literal notranslate"><span class="pre">FamaFrenchFactors.download()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.fff.FamaFrenchFactors.load"><code class="docutils literal notranslate"><span class="pre">FamaFrenchFactors.load()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pystock.html#module-pystock.models">pystock.models module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.models.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.add_portfolio"><code class="docutils literal notranslate"><span class="pre">Model.add_portfolio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.create_portfolio"><code class="docutils literal notranslate"><span class="pre">Model.create_portfolio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.expected_return_of_stock"><code class="docutils literal notranslate"><span class="pre">Model.expected_return_of_stock()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.get_risk_free_rate"><code class="docutils literal notranslate"><span class="pre">Model.get_risk_free_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.load_portfolio"><code class="docutils literal notranslate"><span class="pre">Model.load_portfolio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.optimize_portfolio"><code class="docutils literal notranslate"><span class="pre">Model.optimize_portfolio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.portfolio_expected_value"><code class="docutils literal notranslate"><span class="pre">Model.portfolio_expected_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.portfolio_frontier"><code class="docutils literal notranslate"><span class="pre">Model.portfolio_frontier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.portfolio_info"><code class="docutils literal notranslate"><span class="pre">Model.portfolio_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.portfolio_std"><code class="docutils literal notranslate"><span class="pre">Model.portfolio_std()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.portfolio_variance"><code class="docutils literal notranslate"><span class="pre">Model.portfolio_variance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.set_risk_free_rate"><code class="docutils literal notranslate"><span class="pre">Model.set_risk_free_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.update_portfolio"><code class="docutils literal notranslate"><span class="pre">Model.update_portfolio()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pystock.html#module-pystock.portfolio">pystock.portfolio module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio"><code class="docutils literal notranslate"><span class="pre">Portfolio</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.add_stocks"><code class="docutils literal notranslate"><span class="pre">Portfolio.add_stocks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.all_stocks"><code class="docutils literal notranslate"><span class="pre">Portfolio.all_stocks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.benchmark_return"><code class="docutils literal notranslate"><span class="pre">Portfolio.benchmark_return()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.calculate_fff_params"><code class="docutils literal notranslate"><span class="pre">Portfolio.calculate_fff_params()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.calculate_fff_params_one"><code class="docutils literal notranslate"><span class="pre">Portfolio.calculate_fff_params_one()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.change_benchmark"><code class="docutils literal notranslate"><span class="pre">Portfolio.change_benchmark()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.change_benchmark_frequency"><code class="docutils literal notranslate"><span class="pre">Portfolio.change_benchmark_frequency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.get_all_stock_params"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_all_stock_params()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.get_all_stock_returns"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_all_stock_returns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.get_cov_matrix"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_cov_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.get_stock_params"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_stock_params()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.get_stock_return"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_stock_return()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.load_all"><code class="docutils literal notranslate"><span class="pre">Portfolio.load_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.load_benchmark"><code class="docutils literal notranslate"><span class="pre">Portfolio.load_benchmark()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.load_one_stock"><code class="docutils literal notranslate"><span class="pre">Portfolio.load_one_stock()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.merge_all"><code class="docutils literal notranslate"><span class="pre">Portfolio.merge_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.merge_stock_with_benchmark"><code class="docutils literal notranslate"><span class="pre">Portfolio.merge_stock_with_benchmark()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.portfolio_return"><code class="docutils literal notranslate"><span class="pre">Portfolio.portfolio_return()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.remove_stocks"><code class="docutils literal notranslate"><span class="pre">Portfolio.remove_stocks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.set_weights"><code class="docutils literal notranslate"><span class="pre">Portfolio.set_weights()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.summary"><code class="docutils literal notranslate"><span class="pre">Portfolio.summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.portfolio.Stock"><code class="docutils literal notranslate"><span class="pre">Stock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Stock.calculate_fff"><code class="docutils literal notranslate"><span class="pre">Stock.calculate_fff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Stock.change_frequency"><code class="docutils literal notranslate"><span class="pre">Stock.change_frequency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Stock.download_fff"><code class="docutils literal notranslate"><span class="pre">Stock.download_fff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Stock.freq_return"><code class="docutils literal notranslate"><span class="pre">Stock.freq_return()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Stock.load_data"><code class="docutils literal notranslate"><span class="pre">Stock.load_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Stock.load_fff"><code class="docutils literal notranslate"><span class="pre">Stock.load_fff()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pystock.html#module-pystock.utils">pystock.utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.utils.bigger_frequency"><code class="docutils literal notranslate"><span class="pre">bigger_frequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.utils.create_weight"><code class="docutils literal notranslate"><span class="pre">create_weight()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.utils.load_data"><code class="docutils literal notranslate"><span class="pre">load_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.utils.merge_dfs"><code class="docutils literal notranslate"><span class="pre">merge_dfs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pystock.html#module-pystock">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">Welcome to pystock’s documentation!</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="pystock.html"
+                          title="next chapter">pystock package</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/modules.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pystock.html" title="pystock package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to pystock’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pystock 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pystock</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Harikesh Kushwaha.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.0.0.
+    </div>
+  </body>
+</html>

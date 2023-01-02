@@ -32,3 +32,5 @@ download = ["black", "yfinance"]
 
 [project.urls]
 Homepage = "https://github.com/Hari31416/pystock"
+repository = "https://github.com/Hari31416/pystock"
+documentation = "https://hari31416.github.io/pystock/
