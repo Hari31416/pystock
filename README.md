@@ -81,4 +81,4 @@ TSLA: 16.73%
 
 ## More Examples
 
-For more examples, please refer to the notebook [Working_With_pystock.ipynb](Working_With_pystock.ipynb). Also have a look at [Downloading_Data.ipynb](Downloading_Data.ipynb).
+For more examples, please refer to the notebook [Working_With_pystock.ipynb](https://github.com/Hari31416/pystock/blob/main/Working_With_pystock.ipynb). Also have a look at [Downloading_Data.ipynb](https://github.com/Hari31416/pystock/blob/main/Downloading_Data.ipynb).
