@@ -1,5 +1,8 @@
 # pystock
 
+[![PyPI version](https://badge.fury.io/py/pystock0.svg)](https://badge.fury.io/py/pystock0)
+[![Downloads](https://static.pepy.tech/personalized-badge/pystock0?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/pystock0)
+
 A small python library for stock market analysis. Especially for portfolio optimization.
 
 ## Installation
@@ -60,7 +63,7 @@ model = Model()
 model.add_portfolio(pt, weights="equal")
 
 # Optimizing the portfolio using CAPM
-risk = 0.1
+risk = 0.5
 model_ = "capm"
 res = model.optimize_portfolio(risk=risk, model=model_)
 print(res)
