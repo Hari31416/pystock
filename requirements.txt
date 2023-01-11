@@ -1,7 +1,7 @@
 pandas
 numpy
 plotly
-yfinance #needed only if you want ot download data from yahoo finance
+yfinance #needed only if you want to download data from yahoo finance
 beautifulsoup4
 requests
 scipy

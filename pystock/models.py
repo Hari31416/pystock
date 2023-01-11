@@ -1,9 +1,7 @@
 import pandas as pd
 from scipy.optimize import minimize
 import plotly.express as px
-import plotly.io as pio
 
-pio.templates.default = "plotly_dark"
 from pystock.exceptions import *
 from pystock.utils import *
 from pystock.portfolio import *
@@ -49,7 +47,7 @@ class Model:
         """
         return self.__risk_free_rate
 
-    def add_portfolio(self, portfolio: Portfolio, weights=None):
+    def add_portfolio(self, portfolio: Portfolio, weights="equal"):
         """
         Adds given the portfolio
 
