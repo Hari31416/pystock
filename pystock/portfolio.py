@@ -664,6 +664,9 @@ class Portfolio:
 
         Parameters
         ----------
+        stocks : list, optional
+            List of stocks, by default []
+            Not needed if `stock_dirs` is specified
         stock_dirs : list
             List of stock directories
         stock_names : list, optional
@@ -962,9 +965,7 @@ class Portfolio:
         Returns
         -------
         pd.DataFrame
-            Stock data
-        pd.DataFrame
-            Benchmark data
+            stock alpha and beta
         """
         alphas = []
         betas = []
@@ -998,8 +999,8 @@ class Portfolio:
 
         Returns
         -------
-        pd.DataFrame
-            Stock returns
+        tuple
+            Stock return and volatility
         """
         try:
             stock = self[name]

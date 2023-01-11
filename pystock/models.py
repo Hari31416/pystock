@@ -47,7 +47,7 @@ class Model:
         """
         return self.__risk_free_rate
 
-    def add_portfolio(self, portfolio: Portfolio, weights="equal"):
+    def add_portfolio(self, portfolio: Portfolio, weights="equal", print_summary=False):
         """
         Adds given the portfolio
 
@@ -57,6 +57,8 @@ class Model:
             New portfolio
         weights : list, optional
             List of weights of the stocks, by default None
+        print_summary : bool, optional
+            Whether to print the summary of the portfolio, by default False
 
         Returns
         -------
@@ -66,14 +68,17 @@ class Model:
             raise PortfolioExists(
                 "Portfolio already exists. Use update_portfolio() to update it."
             )
-        self.portfolio = portfolio
         self.market_return = 100 * portfolio.benchmark_return(
             frequency=self.frequency, column="Close"
         )
-        print("Adding portfolio...")
-        self.portfolio.summary(frequency=self.frequency, weights=weights)
+        # Check if calling summary is needed
+        if not portfolio.cov_matrix or print_summary:
+            self.portfolio.summary(frequency=self.frequency, weights=weights)
+        self.portfolio = portfolio
 
-    def update_portfolio(self, portfolio: Portfolio, weights="equal"):
+    def update_portfolio(
+        self, portfolio: Portfolio, weights="equal", print_summary=False
+    ):
         """
         Updates the portfolio to the new portfolio
 
@@ -83,17 +88,21 @@ class Model:
             New portfolio
         weights : list, optional
             List of weights of the stocks, by default "equal"
+        print_summary : bool, optional
+            Whether to print the summary of the portfolio, by default False
 
         Returns
         -------
         None
         """
-        self.portfolio = portfolio
         self.market_return = 100 * portfolio.benchmark_return(
             frequency=self.frequency, column="Close"
         )
-        print("Adding portfolio...")
-        self.portfolio.summary(frequency=self.frequency, weights=weights)
+
+        # Check if calling summary is needed
+        if not portfolio.cov_matrix or print_summary:
+            self.portfolio.summary(frequency=self.frequency, weights=weights)
+        self.portfolio = portfolio
 
     def load_portfolio(
         self,
