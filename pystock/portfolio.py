@@ -162,6 +162,7 @@ class Stock:
         self.start_date = start_date
         self.end_date = end_date
         self.frequency = frequency
+        self.original_columns = columns
         self.loaded = True
         return df
 
@@ -293,6 +294,7 @@ class Portfolio:
         self.weights = self.set_weights(weights)
         self.stock_params = {}
         self.mean_values = None
+        self._all_set = False
 
     def __str__(self) -> str:
         if not self.stocks:
@@ -330,7 +332,10 @@ class Portfolio:
         """
         if stock_name == self.benchmark_name:
             return self.benchmark
-        return self.stocks[self.stock_names.index(stock_name)]
+        try:
+            return self.stocks[self.stock_names.index(stock_name)]
+        except ValueError:
+            raise KeyError(f"{stock_name} not in portfolio")
 
     def __len__(self):
         """
@@ -339,7 +344,7 @@ class Portfolio:
         return len(self.stocks) + 1
 
     def __repr__(self) -> str:
-        return f"Portfolio({self.benchmark_name},{self.stock_names})"
+        return f"Portfolio({self.benchmark_name}, {self.stock_names})"
 
     def _return_of_stocks(self, column="Close", frequency="M"):
         """
@@ -436,8 +441,6 @@ class Portfolio:
         if not self.stock_names:
             self.stock_names = [f"df{i+1}" for i in range(len(self.stock_dirs))]
 
-        assert self.stock_dirs, "There must be at least one stock_dir"
-        assert self.stock_names, "There must be some stock name"
         self.stocks = []
         for i, stock_dir in enumerate(self.stock_dirs):
             stock_name = self.stock_names[i]
@@ -529,9 +532,9 @@ class Portfolio:
             if not end_date:
                 end_date = self.benchmark.end_date
             if not columns:
-                columns = self.benchmark.columns
+                columns = self.benchmark.original_columns
             if not rename_cols:
-                rename_cols = self.benchmark.columns
+                rename_cols = list(self.benchmark.columns)
             if not frequency:
                 frequency = self.benchmark.frequency
         self.benchmark = Stock(self.benchmark_name, self.benchmark_dir)
@@ -735,6 +738,7 @@ class Portfolio:
                         rename_cols=rename_cols,
                     )
         self.weights = self.set_weights()
+        self._all_set = False
 
     def remove_stocks(self, names):
         """
@@ -749,11 +753,13 @@ class Portfolio:
         for name in names:
             if name in self.stock_names:
                 ids.append(self.stock_names.index(name))
+        ids.sort(reverse=True)
         for id_ in ids:
             self.stock_names.pop(id_)
             self.stock_dirs.pop(id_)
             self.stocks.pop(id_)
         self.weights = self.set_weights()
+        self._all_set = False
 
     def change_benchmark_frequency(self, frequency, change_stocks=True):
         """
@@ -828,6 +834,10 @@ class Portfolio:
         pd.DataFrame
             Benchmark return
         """
+        if not self.benchmark.loaded:
+            raise NotLoadedError(f"Benchmark data not loaded")
+        if column not in self.benchmark.data.columns:
+            raise ColumnNotFound(f"Column {column} not found in dataframe")
         return self.benchmark.freq_return(frequency=frequency, column=column)
 
     def merge_all(self):
@@ -890,10 +900,11 @@ class Portfolio:
         try:
             stock = self[name]
         except KeyError:
-            raise StockException(f"Stock {name} not found")
-
+            raise StockException(f"Stock {name} not in the Portfolio")
+        if not stock.loaded:
+            raise NotLoadedError(f"Stock {name} not loaded. Use load_all()")
         if column not in stock.data.columns:
-            raise StockException(f"Column {column} not found in {name}")
+            raise ColumnNotFound(f"Column {column} not found in {name}")
 
         if frequency != self.benchmark.frequency:
             self.change_benchmark_frequency(frequency)
@@ -901,10 +912,10 @@ class Portfolio:
 
         dfs = dfs_temp[[f"{name}_{column}", f"{self.benchmark.name}_{column}"]]
         dfs = dfs.pct_change().dropna()
-        assert dfs.shape[0] > 0, "No data found"
-        assert (
-            dfs.shape[1] == 2
-        ), f"Number of colmuns {dfs.shape[1]}, Data not merged properly."
+        if not dfs.shape[0] > 0:
+            raise ValueError("No data found")
+        if dfs.shape[1] != 2:
+            print(f"Number of colmuns {dfs.shape[1]}, Data not merged properly.")
 
         return dfs
 
@@ -1004,10 +1015,12 @@ class Portfolio:
         """
         try:
             stock = self[name]
-        except ValueError:
+        except KeyError:
             raise StockException(f"Stock {name} not in the Portfolio")
+        if not stock.loaded:
+            raise NotLoadedError(f"Stock {name} not loaded. Use load_all()")
         if column not in stock.data.columns:
-            raise StockException(f"Column {column} not found in {name}")
+            raise ColumnNotFound(f"Column {column} not found in {name}")
 
         return_ = stock.freq_return(frequency=frequency, column=column, mean=False)
         volatility = return_.std()
@@ -1075,7 +1088,26 @@ class Portfolio:
 
         return return_, volatility
 
-    def summary(self, frequency="M", column="Close", weights="equal"):
+    def __make_all_set(self, frequency="M", column="Close", weights="equal"):
+
+        self.stocks_summary = self.get_all_stock_returns(frequency, column)
+
+        self.cov_matrix = self.get_cov_matrix(frequency=frequency, column=column)
+
+        self.portfolio_return, self.portfolio_volatility = self.portfolio_return(
+            weights=weights, frequency=frequency, column=column
+        )
+        self.params = self.get_all_stock_params(
+            return_dict=True, frequency=frequency, column=column
+        )
+        self.weights = self.set_weights(weights=weights)
+        if len(self.weights) != len(self.stocks):
+            raise ValueError(
+                f"Number of weights {len(weights)} not equal to number of stocks {len(self.stocks)}"
+            )
+        self._all_set = True
+
+    def summary(self, frequency="M", column="Close", weights="equal", just_load=False):
         """
         Get the portfolio return
 
@@ -1092,20 +1124,16 @@ class Portfolio:
         float
             Portfolio return
         """
-        self.cov_matrix = self.get_cov_matrix(frequency=frequency, column=column)
-        stock_summary = self.get_all_stock_returns(frequency, column)
-        num_stocks = len(self.stocks)
-        weights = self.set_weights(weights=weights)
-        assert (
-            len(weights) == num_stocks
-        ), f"Number of weights {len(weights)} not equal to number of stocks {num_stocks}"
-
-        portfolio_return, portfoio_volatility = self.portfolio_return(
-            weights=weights, frequency=frequency, column=column
-        )
-        params = self.get_all_stock_params(
-            return_dict=True, frequency=frequency, column=column
-        )
+        if not self._all_set:
+            self.__make_all_set(
+                frequency=frequency,
+                column=column,
+                weights=weights,
+            )
+        if just_load:
+            return
+        stock_summary = self.stocks_summary
+        params = self.params
         stock_summary["Alpha"] = params["Alpha"]
         stock_summary["Beta"] = params["Beta"]
         stock_summary["Weight"] = weights
@@ -1117,11 +1145,34 @@ class Portfolio:
         print(tabulate(stock_summary, headers="keys", tablefmt="psql"))
         print("The covariance matrix is as follows")
         print(tabulate(self.cov_matrix, headers="keys", tablefmt="psql"))
-        print(f"Portfolio Return: {portfolio_return}")
-        print(f"Portfolio Volatility: {portfoio_volatility}")
+        print(f"Portfolio Return: {self.portfolio_return}")
+        print(f"Portfolio Volatility: {self.portfolio_volatility}")
+
+    def download_fff_params(
+        self,
+        stock,
+        factors=5,
+        directory=".",
+        frequency="M",
+        overwrite=False,
+    ):
+        file_dir = stock.fff.download(
+            factors=factors,
+            frequency=frequency,
+            directory=directory,
+            overwrite=overwrite,
+        )
+        return file_dir
 
     def calculate_fff_params_one(
-        self, stock, factors=5, directory=".", frequency="M", column="Close", verbose=0
+        self,
+        stock,
+        factors=5,
+        directory=".",
+        frequency="M",
+        column="Close",
+        verbose=0,
+        download=True,
     ):
         """
         calculate the Fama-French factors for regression
@@ -1141,6 +1192,14 @@ class Portfolio:
         """
         if isinstance(stock, str):
             stock = self[stock]
+        if download:
+            self.download_fff_params(
+                stock=stock,
+                factors=factors,
+                frequency=frequency,
+                directory=directory,
+                overwrite=False,
+            )
         if verbose:
             print(f"Calculating Fama-French factors for {stock.name}")
         _ = stock.load_fff(factors=factors, directory=directory, frequency=frequency)
@@ -1155,7 +1214,13 @@ class Portfolio:
         return params
 
     def calculate_fff_params(
-        self, factors=5, directory=".", frequency="M", column="Close", verbose=0
+        self,
+        factors=5,
+        directory=".",
+        frequency="M",
+        column="Close",
+        verbose=0,
+        download=True,
     ):
         """
         calculate the Fama-French factors for regression
@@ -1171,6 +1236,14 @@ class Portfolio:
         column : str, optional
             Column to use, by default "Close"
         """
+        if download:
+            self.download_fff_params(
+                stock=self.stocks[0],
+                factors=factors,
+                frequency=frequency,
+                directory=directory,
+                overwrite=False,
+            )
         for stock in self.stocks:
             _ = self.calculate_fff_params_one(
                 stock=stock,
@@ -1179,6 +1252,7 @@ class Portfolio:
                 frequency=frequency,
                 column=column,
                 verbose=verbose,
+                download=False,
             )
         print("Done. Here are the parameters")
         print(tabulate(self.stock_params, headers="keys", tablefmt="psql"))

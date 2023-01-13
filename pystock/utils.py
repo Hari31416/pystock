@@ -3,7 +3,7 @@ import datetime
 import numpy as np
 
 
-def _convert_str_to_date_(self, string, format="%Y-%m-%d"):
+def convert_str_to_date(string, format="%Y-%m-%d"):
     """
     Convert string to date
 
@@ -19,10 +19,10 @@ def _convert_str_to_date_(self, string, format="%Y-%m-%d"):
     datetime.date
         Date
     """
+    if not string:
+        raise ValueError("String is empty")
     if isinstance(string, datetime.date):
         return string
-    if not string:
-        return None
     return datetime.datetime.strptime(string, format)
 
 
@@ -60,8 +60,14 @@ def load_data(
     df.sort_index(inplace=True)
     smallest_date = df.index[0]
     largest_date = df.index[-1]
-    start_date = _convert_str_to_date_(start_date)
-    end_date = _convert_str_to_date_(end_date)
+    if not start_date:
+        start_date = df.index[0]
+    else:
+        start_date = convert_str_to_date(start_date)
+    if not end_date:
+        end_date = df.index[-1]
+    else:
+        end_date = convert_str_to_date(end_date)
 
     if start_date and start_date < smallest_date:
         raise ValueError(
@@ -73,10 +79,6 @@ def load_data(
             "End date is after the data ends. If you don't want to specify an end date, set it to None."
         )
 
-    if not start_date:
-        start_date = df.index[0]
-    if not end_date:
-        end_date = df.index[-1]
     date_range = (start_date, end_date)
     df = df[(df.index >= date_range[0]) & (df.index <= date_range[1])]
     if columns:
