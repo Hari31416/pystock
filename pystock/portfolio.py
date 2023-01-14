@@ -292,7 +292,7 @@ class Portfolio:
         self.benchmark = Stock(self.benchmark_name, self.benchmark_dir)
         self.__create_stock_objects()
         self.weights = self.set_weights(weights)
-        self.stock_params = {}
+        self.stock_fff_params = {}
         self.mean_values = None
         self._all_set = False
 
@@ -759,6 +759,10 @@ class Portfolio:
             self.stock_dirs.pop(id_)
             self.stocks.pop(id_)
         self.weights = self.set_weights()
+        # Remove from fff_params
+        for name in names:
+            if name in self.stock_fff_params:
+                del self.stock_fff_params[name]
         self._all_set = False
 
     def change_benchmark_frequency(self, frequency, change_stocks=True):
@@ -1062,7 +1066,7 @@ class Portfolio:
 
         return pd.DataFrame(result_dict)
 
-    def portfolio_return(self, frequency="M", column="Close", weights="equal"):
+    def get_portfolio_return(self, frequency="M", column="Close", weights="equal"):
         """
         Get the portfolio return
 
@@ -1094,7 +1098,7 @@ class Portfolio:
 
         self.cov_matrix = self.get_cov_matrix(frequency=frequency, column=column)
 
-        self.portfolio_return, self.portfolio_volatility = self.portfolio_return(
+        self.portfolio_return, self.portfolio_volatility = self.get_portfolio_return(
             weights=weights, frequency=frequency, column=column
         )
         self.params = self.get_all_stock_params(
@@ -1136,7 +1140,7 @@ class Portfolio:
         params = self.params
         stock_summary["Alpha"] = params["Alpha"]
         stock_summary["Beta"] = params["Beta"]
-        stock_summary["Weight"] = weights
+        stock_summary["Weight"] = self.weights
 
         print("Portfolio Summary")
         print("*****************\n")
@@ -1203,15 +1207,18 @@ class Portfolio:
         if verbose:
             print(f"Calculating Fama-French factors for {stock.name}")
         _ = stock.load_fff(factors=factors, directory=directory, frequency=frequency)
-        params = stock.calculate_fff(column=column, verbose=verbose)
-        params["rf"] = 1.0
-        self.stock_params[stock.name] = params
+        fff_params = stock.calculate_fff(column=column, verbose=verbose)
+        
+        fff_params["rf"] = 1.0
+        self.stock_fff_params["Coefficients"] = list(stock.params.index)
+        self.stock_fff_params[stock.name] = fff_params
+
         if verbose:
             print("Done. Here are the parameters")
-            print(tabulate(params, headers="keys", tablefmt="psql"))
+            print(tabulate(fff_params, headers="keys", tablefmt="psql"))
         if not isinstance(self.mean_values, pd.Series):
             self.mean_values = stock.fff.calculate_mean_values()
-        return params
+        return fff_params
 
     def calculate_fff_params(
         self,
@@ -1235,7 +1242,18 @@ class Portfolio:
             Frequency of the data, by default "M"
         column : str, optional
             Column to use, by default "Close"
+        
+        Raises
+        ------
+        ValueError
+            If no stocks in the portfolio
+
+        Returns
+        -------
+        None
         """
+        if len(self.stocks) == 0:
+            raise ValueError("No stocks in the portfolio")
         if download:
             self.download_fff_params(
                 stock=self.stocks[0],
@@ -1255,4 +1273,4 @@ class Portfolio:
                 download=False,
             )
         print("Done. Here are the parameters")
-        print(tabulate(self.stock_params, headers="keys", tablefmt="psql"))
+        print(tabulate(self.stock_fff_params, headers="keys", tablefmt="psql"))

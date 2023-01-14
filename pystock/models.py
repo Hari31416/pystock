@@ -26,19 +26,21 @@ class Model:
         self.__risk_free_rate = risk_free_rate
 
     def __getitem__(self, key):
-        if not self.portfolios:
+        if not self.portfolio:
             raise NoPortfolioCreated(
                 "No portfolio has been created yet. Use create_portfolio() to create one."
             )
         return self.portfolio[key]
 
     def __repr__(self) -> str:
-        return f"Model(frequency={self.frequency})"
+        return f"Model(frequency={self.frequency}, rf={self.__risk_free_rate})"
 
     def set_risk_free_rate(self, rate):
         """
         Sets the risk free rate
         """
+        if rate < 0:
+            raise ValueError("Risk free rate cannot be negative")
         self.__risk_free_rate = rate
 
     def get_risk_free_rate(self):
@@ -68,12 +70,10 @@ class Model:
             raise PortfolioExists(
                 "Portfolio already exists. Use update_portfolio() to update it."
             )
-        self.market_return = 100 * portfolio.benchmark_return(
-            frequency=self.frequency, column="Close"
-        )
-        # Check if calling summary is needed
-        if not portfolio.cov_matrix or print_summary:
-            self.portfolio.summary(frequency=self.frequency, weights=weights)
+        if print_summary:
+            portfolio.summary(frequency=self.frequency, weights=weights)
+            self.portfolio = portfolio
+            return None
         self.portfolio = portfolio
 
     def update_portfolio(
@@ -95,13 +95,11 @@ class Model:
         -------
         None
         """
-        self.market_return = 100 * portfolio.benchmark_return(
-            frequency=self.frequency, column="Close"
-        )
 
-        # Check if calling summary is needed
-        if not portfolio.cov_matrix or print_summary:
-            self.portfolio.summary(frequency=self.frequency, weights=weights)
+        if print_summary:
+            portfolio.summary(frequency=self.frequency, weights=weights)
+            self.portfolio = portfolio
+            return None
         self.portfolio = portfolio
 
     def load_portfolio(
@@ -111,6 +109,8 @@ class Model:
         frequency="M",
         start_date=None,
         end_date=None,
+        print_summary=True,
+        **kwargs,
     ):
         """
         Loads the portfolio data
@@ -127,6 +127,10 @@ class Model:
             Start date of the data, by default None
         end_date : str, optional
             End date of the data, by default None
+        print_summary : bool, optional
+            Whether to print the summary of the portfolio, by default True
+        **kwargs : dict
+            Keyword arguments to be passed to the summary function
 
         Raises
         ------
@@ -157,11 +161,9 @@ class Model:
             start_date=start_date,
             end_date=end_date,
         )
-        print("Calculating other results...")
-        self.market_return = 100 * self.portfolio.benchmark_return(
-            frequency=self.frequency, column="Close"
-        )
-        self.portfolio.summary(frequency=self.frequency)
+        if print_summary:
+            print("Calculating other results...")
+            self.portfolio.summary(frequency=self.frequency, **kwargs)
 
     def create_portfolio(
         self,
@@ -170,14 +172,17 @@ class Model:
         stock_dirs=None,
         stock_names=None,
         weights="equal",
+        load_data=True,
         columns=["Adj Close"],
         frequency="M",
         rename_cols=["Close"],
         start_date=None,
         end_date=None,
+        print_summary=True,
+        **kwargs,
     ):
         """
-        Create a portfolio object from the data directories
+        Create a portfolio object from the data directories and adds it to the model
 
         Parameters
         ----------
@@ -191,6 +196,8 @@ class Model:
             List of names of the stocks, by default None
         weights : list, optional
             List of weights of the stocks, by default "equal"
+        load_data : bool, optional
+            Whether to load the data, by default True
         columns : list, optional
             List of columns to be loaded, by default ["Adj Close"]
         frequency : str, optional
@@ -201,6 +208,10 @@ class Model:
             Start date of the data, by default None
         end_date : str, optional
             End date of the data, by default None
+        print_summary : bool, optional
+            Whether to print the summary of the portfolio, by default True
+        **kwargs : dict
+            Keyword arguments to be passed to the summary function
 
         Returns
         -------
@@ -214,30 +225,61 @@ class Model:
             stock_names=stock_names,
             weights=weights,
         )
-        print("Loading benchmark...")
-        portfolio.load_benchmark(
-            columns=columns,
-            rename_cols=rename_cols,
-            frequency=frequency,
-            start_date=start_date,
-            end_date=end_date,
-        )
-        print("Loading stocks...")
-        portfolio.load_all(
-            columns=columns,
-            rename_cols=rename_cols,
-            frequency=frequency,
-            start_date=start_date,
-            end_date=end_date,
-        )
-        print("Calculating other results...")
         self.portfolio = portfolio
-        self.market_return = 100 * portfolio.benchmark_return(
-            frequency=self.frequency, column="Close"
-        )
-        self.portfolio.summary(frequency=self.frequency)
+
+        if load_data:
+            self.load_portfolio(
+                columns=columns,
+                rename_cols=rename_cols,
+                frequency=frequency,
+                start_date=start_date,
+                end_date=end_date,
+                print_summary=print_summary,
+                **kwargs,
+            )
 
         return portfolio
+
+    def calculate_fff_params(
+        self,
+        factors=5,
+        directory=".",
+        frequency="M",
+        column="Close",
+        verbose=0,
+        download=True,
+    ):
+        """
+        calculate the Fama-French factors using the same method as the portfolio
+
+        Parameters
+        ----------
+        factors : int, optional
+            Number of factors, by default 5
+        directory : str, optional
+            Directory to save the data, by default "."
+        frequency : str, optional
+            Frequency of the data, by default "M"
+        column : str, optional
+            Column to use, by default "Close"
+
+        Raises
+        ------
+        ValueError
+            If no stocks in the portfolio
+
+        Returns
+        -------
+        None
+        """
+        self.portfolio.calculate_fff_params(
+            factors=factors,
+            directory=directory,
+            frequency=frequency,
+            column=column,
+            verbose=verbose,
+            download=download,
+        )
 
     def _capm_expected_return(self, beta, rm):
         """
@@ -303,9 +345,12 @@ class Model:
             _ = stock.params
         except AttributeError:
             print(
-                "Warning. FFF params have not been calculated. Using ff3 or ff5 model will result in error."
+                "Warning. FFF params have not been calculated. Using fff3 or fff5 model will result in error. Call self.calculate_fff_params() to calculate it."
             )
 
+        self.market_return = 100 * self.portfolio.benchmark_return(
+            frequency=self.frequency, column="Close"
+        )
         if model == "capm":
             _exp_return = self._capm_expected_return(stock.beta, self.market_return)
 
@@ -315,6 +360,10 @@ class Model:
             )
 
         elif model == "fff5":
+            if len(stock.params) != 7:
+                raise ValueError(
+                    "Stock does not have FFF5 params. Probably because you used `factors=3` when calling `self.calculate_fff_params()`\nPlease call `self.calculate_fff_params()` with `factors=5`."
+                )
             params = stock.params
             mean_values = self.portfolio.mean_values
             _exp_return = self._fff_expected_return(params=params, means=mean_values)
@@ -485,6 +534,7 @@ class Model:
             Dictionary containing the optimized weights, expected return, variance and standard deviation
         """
         weights = self.portfolio.set_weights("equal")
+        self.portfolio.summary(frequency=self.frequency)
         cov_matrix = self.portfolio.cov_matrix
         expected_returns = []
 

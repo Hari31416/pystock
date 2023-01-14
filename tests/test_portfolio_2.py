@@ -589,12 +589,12 @@ def test_get_all_stock_params_loaded_df(loaded_portfolio):
 def test_portfolio_return_not_loaded(portfolio):
     portfolio = portfolio
     with pytest.raises(NotLoadedError):
-        portfolio.portfolio_return()
+        portfolio.get_portfolio_return()
 
 
 def test_portfolio_return_loaded(loaded_portfolio):
     portfolio = loaded_portfolio
-    r, v = portfolio.portfolio_return()
+    r, v = portfolio.get_portfolio_return()
     assert isinstance(r, float), "Return not correct"
     assert isinstance(v, float), "Variance not correct"
 
@@ -611,25 +611,67 @@ def test_summary_just_params(loaded_portfolio):
     assert isinstance(portfolio.cov_matrix, pd.DataFrame)
 
 
-# def test_calculate_fff_params_one_local_not_loaded(portfolio):
-#     portfolio = portfolio
-#     assert portfolio["AAPL"].loaded == False
-#     with pytest.raises(NotLoadedError):
-#         portfolio.calculate_fff_params_one(
-#             "AAPL",
-#             directory=DATA_DIR,
-#             download=False,
-#         )
+def test_calculate_fff_params_one_local_not_loaded(portfolio):
+    portfolio = portfolio
+    assert portfolio["AAPL"].loaded == False
+    with pytest.raises(NotLoadedError):
+        portfolio.calculate_fff_params_one(
+            "AAPL",
+            directory=DATA_DIR,
+            download=False,
+        )
 
 
-# def test_calculate_fff_params_one_local_loaded(loaded_portfolio):
-#     portfolio = loaded_portfolio
-#     res = portfolio.calculate_fff_params_one(
-#         "AAPL", directory=DATA_DIR, download=False, factors=5
-#     )
+def test_calculate_fff_params_one_local_loaded(loaded_portfolio):
+    portfolio = loaded_portfolio
+    res = portfolio.calculate_fff_params_one(
+        "AAPL", directory=DATA_DIR, download=False, factors=5
+    )
 
-#     assert isinstance(res, pd.Series)
-#     assert len(res) == 7
+    assert isinstance(res, pd.Series)
+    assert len(res) == 7
+
+
+def test_calculate_fff_params_all_local_loaded_five(loaded_portfolio):
+    portfolio = loaded_portfolio
+    _ = portfolio.calculate_fff_params(
+        directory=DATA_DIR,
+        download=False,
+        factors=5,
+    )
+
+    assert isinstance(portfolio.stock_fff_params, dict), "Not a dict"
+    assert len(portfolio.stock_fff_params) == len(portfolio), "Not all stocks"
+    assert isinstance(portfolio.stock_fff_params["AAPL"], pd.Series), "Not a series"
+    assert portfolio.stock_fff_params["Coefficients"] == [
+        "const",
+        "Mkt-RF",
+        "SMB",
+        "HML",
+        "RMW",
+        "CMA",
+        "rf",
+    ], "Not correct order"
+
+
+def test_calculate_fff_params_all_local_loaded_three(loaded_portfolio):
+    portfolio = loaded_portfolio
+    _ = portfolio.calculate_fff_params(
+        directory=DATA_DIR,
+        download=False,
+        factors=3,
+    )
+
+    assert isinstance(portfolio.stock_fff_params, dict), "Not a dict"
+    assert len(portfolio.stock_fff_params) == len(portfolio), "Not all stocks"
+    assert isinstance(portfolio.stock_fff_params["AAPL"], pd.Series), "Not a series"
+    assert portfolio.stock_fff_params["Coefficients"] == [
+        "const",
+        "Mkt-RF",
+        "SMB",
+        "HML",
+        "rf",
+    ], "Not correct order"
 
 
 # def test_calculate_fff_params_one_download(loaded_portfolio):

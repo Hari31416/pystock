@@ -31,6 +31,7 @@ def portfolio():
     )
     return portfolio
 
+
 @pytest.fixture
 def portfolio_benchmark_loaded(portfolio):
     portfolio2 = copy.deepcopy(portfolio)
@@ -48,6 +49,7 @@ def portfolio_benchmark_loaded(portfolio):
         rename_cols=rename_col,
     )
     return portfolio2
+
 
 def test_length():
     portfolio = Portfolio(
@@ -138,7 +140,7 @@ def test_init_without_names():
 
 
 def test_init_other_params(portfolio):
-    assert portfolio.stock_params == {}
+    assert portfolio.stock_fff_params == {}
     assert portfolio.mean_values is None
 
 
