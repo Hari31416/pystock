@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pystock0"
-version = "0.2.1"
+version = "0.2.2"
 description = "A library for portfolio optimization"
 readme = "README.md"
 authors = [{ name = "Harikesh Kushwaha", email = "harikeshkumar0926@gmail.com" }]
