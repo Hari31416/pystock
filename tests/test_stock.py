@@ -1,7 +1,3 @@
-import sys
-
-sys.path.append("/media/hari31416/Hari_SSD/Users/harik/Desktop/pystock")
-
 import os
 from pystock.portfolio import Stock
 import pytest
