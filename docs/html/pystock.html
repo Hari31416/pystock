@@ -220,13 +220,14 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pystock.models.Model.add_portfolio">
-<span class="sig-name descname"><span class="pre">add_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pystock.portfolio.Portfolio" title="pystock.portfolio.Portfolio"><span class="pre">Portfolio</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.models.Model.add_portfolio" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pystock.portfolio.Portfolio" title="pystock.portfolio.Portfolio"><span class="pre">Portfolio</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.models.Model.add_portfolio" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds given the portfolio</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>portfolio</strong> (<a class="reference internal" href="#pystock.portfolio.Portfolio" title="pystock.portfolio.Portfolio"><em>Portfolio</em></a>) – New portfolio</p></li>
 <li><p><strong>weights</strong> (<em>list</em><em>, </em><em>optional</em>) – List of weights of the stocks, by default None</p></li>
+<li><p><strong>print_summary</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to print the summary of the portfolio, by default False</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -236,9 +237,31 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pystock.models.Model.calculate_fff_params">
+<span class="sig-name descname"><span class="pre">calculate_fff_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Close'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.models.Model.calculate_fff_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate the Fama-French factors using the same method as the portfolio</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>factors</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of factors, by default 5</p></li>
+<li><p><strong>directory</strong> (<em>str</em><em>, </em><em>optional</em>) – Directory to save the data, by default “.”</p></li>
+<li><p><strong>frequency</strong> (<em>str</em><em>, </em><em>optional</em>) – Frequency of the data, by default “M”</p></li>
+<li><p><strong>column</strong> (<em>str</em><em>, </em><em>optional</em>) – Column to use, by default “Close”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If no stocks in the portfolio</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pystock.models.Model.create_portfolio">
-<span class="sig-name descname"><span class="pre">create_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">benchmark_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">benchmark_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_dirs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['Adj</span> <span class="pre">Close']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rename_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['Close']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.models.Model.create_portfolio" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a portfolio object from the data directories</p>
+<span class="sig-name descname"><span class="pre">create_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">benchmark_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">benchmark_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_dirs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['Adj</span> <span class="pre">Close']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rename_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['Close']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.models.Model.create_portfolio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a portfolio object from the data directories and adds it to the model</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -247,11 +270,14 @@
 <li><p><strong>stock_dirs</strong> (<em>list</em><em>, </em><em>optional</em>) – List of directories of the stocks, by default None</p></li>
 <li><p><strong>stock_names</strong> (<em>list</em><em>, </em><em>optional</em>) – List of names of the stocks, by default None</p></li>
 <li><p><strong>weights</strong> (<em>list</em><em>, </em><em>optional</em>) – List of weights of the stocks, by default “equal”</p></li>
+<li><p><strong>load_data</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to load the data, by default True</p></li>
 <li><p><strong>columns</strong> (<em>list</em><em>, </em><em>optional</em>) – List of columns to be loaded, by default [“Adj Close”]</p></li>
 <li><p><strong>frequency</strong> (<em>str</em><em>, </em><em>optional</em>) – Frequency of the data, by default “M”</p></li>
 <li><p><strong>rename_cols</strong> (<em>list</em><em>, </em><em>optional</em>) – List of columns to be renamed, by default [“Close”]</p></li>
 <li><p><strong>start_date</strong> (<em>str</em><em>, </em><em>optional</em>) – Start date of the data, by default None</p></li>
 <li><p><strong>end_date</strong> (<em>str</em><em>, </em><em>optional</em>) – End date of the data, by default None</p></li>
+<li><p><strong>print_summary</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to print the summary of the portfolio, by default True</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Keyword arguments to be passed to the summary function</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -288,7 +314,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pystock.models.Model.load_portfolio">
-<span class="sig-name descname"><span class="pre">load_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['Adj</span> <span class="pre">Close']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rename_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['Close']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.models.Model.load_portfolio" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['Adj</span> <span class="pre">Close']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rename_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['Close']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.models.Model.load_portfolio" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads the portfolio data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -298,6 +324,8 @@
 <li><p><strong>frequency</strong> (<em>str</em><em>, </em><em>optional</em>) – Frequency of the data, by default “M”</p></li>
 <li><p><strong>start_date</strong> (<em>str</em><em>, </em><em>optional</em>) – Start date of the data, by default None</p></li>
 <li><p><strong>end_date</strong> (<em>str</em><em>, </em><em>optional</em>) – End date of the data, by default None</p></li>
+<li><p><strong>print_summary</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to print the summary of the portfolio, by default True</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Keyword arguments to be passed to the summary function</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -432,13 +460,14 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pystock.models.Model.update_portfolio">
-<span class="sig-name descname"><span class="pre">update_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pystock.portfolio.Portfolio" title="pystock.portfolio.Portfolio"><span class="pre">Portfolio</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equal'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.models.Model.update_portfolio" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pystock.portfolio.Portfolio" title="pystock.portfolio.Portfolio"><span class="pre">Portfolio</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.models.Model.update_portfolio" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the portfolio to the new portfolio</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>portfolio</strong> (<a class="reference internal" href="#pystock.portfolio.Portfolio" title="pystock.portfolio.Portfolio"><em>Portfolio</em></a>) – New portfolio</p></li>
 <li><p><strong>weights</strong> (<em>list</em><em>, </em><em>optional</em>) – List of weights of the stocks, by default “equal”</p></li>
+<li><p><strong>print_summary</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to print the summary of the portfolio, by default False</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -465,6 +494,8 @@ The class provides some useful methods for calculating the return of the portfol
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>stocks</strong> (<em>list</em><em>, </em><em>optional</em>) – List of stocks, by default []
+Not needed if <cite>stock_dirs</cite> is specified</p></li>
 <li><p><strong>stock_dirs</strong> (<em>list</em>) – List of stock directories</p></li>
 <li><p><strong>stock_names</strong> (<em>list</em><em>, </em><em>optional</em>) – List of stock names, by default None</p></li>
 <li><p><strong>load_data</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to load the data, by default True</p></li>
@@ -521,7 +552,7 @@ The class provides some useful methods for calculating the return of the portfol
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pystock.portfolio.Portfolio.calculate_fff_params">
-<span class="sig-name descname"><span class="pre">calculate_fff_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Close'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.portfolio.Portfolio.calculate_fff_params" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">calculate_fff_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Close'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.portfolio.Portfolio.calculate_fff_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate the Fama-French factors for regression</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -532,12 +563,18 @@ The class provides some useful methods for calculating the return of the portfol
 <li><p><strong>column</strong> (<em>str</em><em>, </em><em>optional</em>) – Column to use, by default “Close”</p></li>
 </ul>
 </dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If no stocks in the portfolio</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pystock.portfolio.Portfolio.calculate_fff_params_one">
-<span class="sig-name descname"><span class="pre">calculate_fff_params_one</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stock</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Close'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.portfolio.Portfolio.calculate_fff_params_one" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">calculate_fff_params_one</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stock</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Close'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.portfolio.Portfolio.calculate_fff_params_one" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate the Fama-French factors for regression</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -594,6 +631,11 @@ The class provides some useful methods for calculating the return of the portfol
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pystock.portfolio.Portfolio.download_fff_params">
+<span class="sig-name descname"><span class="pre">download_fff_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stock</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.portfolio.Portfolio.download_fff_params" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pystock.portfolio.Portfolio.get_all_stock_params">
 <span class="sig-name descname"><span class="pre">get_all_stock_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">how</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inner'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Close'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.portfolio.Portfolio.get_all_stock_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the stock data and the benchmark data</p>
@@ -607,11 +649,10 @@ The class provides some useful methods for calculating the return of the portfol
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>pd.DataFrame</em> – Stock data</p></li>
-<li><p><em>pd.DataFrame</em> – Benchmark data</p></li>
-</ul>
-</p>
+<dd class="field-even"><p>stock alpha and beta</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -657,6 +698,27 @@ The class provides some useful methods for calculating the return of the portfol
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pystock.portfolio.Portfolio.get_portfolio_return">
+<span class="sig-name descname"><span class="pre">get_portfolio_return</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Close'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equal'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.portfolio.Portfolio.get_portfolio_return" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the portfolio return</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frequency</strong> (<em>str</em><em>, </em><em>optional</em>) – Frequency of the data, by default “M”</p></li>
+<li><p><strong>column</strong> (<em>str</em><em>, </em><em>optional</em>) – Column to use, by default “Close”</p></li>
+<li><p><strong>weights</strong> (<em>list</em>) – List of weights</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Portfolio return</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pystock.portfolio.Portfolio.get_stock_params">
 <span class="sig-name descname"><span class="pre">get_stock_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">how</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inner'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Close'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.portfolio.Portfolio.get_stock_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the stock data and the benchmark data</p>
@@ -692,10 +754,10 @@ The class provides some useful methods for calculating the return of the portfol
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Stock returns</p>
+<dd class="field-even"><p>Stock return and volatility</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
+<dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
 </dd></dl>
@@ -807,27 +869,6 @@ The class provides some useful methods for calculating the return of the portfol
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pystock.portfolio.Portfolio.portfolio_return">
-<span class="sig-name descname"><span class="pre">portfolio_return</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Close'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equal'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.portfolio.Portfolio.portfolio_return" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the portfolio return</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>frequency</strong> (<em>str</em><em>, </em><em>optional</em>) – Frequency of the data, by default “M”</p></li>
-<li><p><strong>column</strong> (<em>str</em><em>, </em><em>optional</em>) – Column to use, by default “Close”</p></li>
-<li><p><strong>weights</strong> (<em>list</em>) – List of weights</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Portfolio return</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="pystock.portfolio.Portfolio.remove_stocks">
 <span class="sig-name descname"><span class="pre">remove_stocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.portfolio.Portfolio.remove_stocks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove a stock from the list of stocks</p>
@@ -857,7 +898,7 @@ The class provides some useful methods for calculating the return of the portfol
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pystock.portfolio.Portfolio.summary">
-<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Close'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equal'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.portfolio.Portfolio.summary" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'M'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Close'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">just_load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.portfolio.Portfolio.summary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the portfolio return</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -998,6 +1039,26 @@ Assumes that the dataframe has column <cite>Date</cite> containing dates.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="pystock.utils.convert_str_to_date">
+<span class="sig-prename descclassname"><span class="pre">pystock.utils.</span></span><span class="sig-name descname"><span class="pre">convert_str_to_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%Y-%m-%d'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.utils.convert_str_to_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert string to date</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<em>str</em>) – String to convert</p></li>
+<li><p><strong>format</strong> (<em>str</em><em>, </em><em>optional</em>) – Format of the string, by default “%Y-%m-%d”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Date</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime.date</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="pystock.utils.create_weight">
 <span class="sig-prename descclassname"><span class="pre">pystock.utils.</span></span><span class="sig-name descname"><span class="pre">create_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_stock</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'equal'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pystock.utils.create_weight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a list of weights for a portfolio with <cite>num_stock</cite> stocks</p>
@@ -1097,6 +1158,7 @@ Assumes that the dataframe has column <cite>Date</cite> containing dates.</p>
 <li><a class="reference internal" href="#module-pystock.models">pystock.models module</a><ul>
 <li><a class="reference internal" href="#pystock.models.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul>
 <li><a class="reference internal" href="#pystock.models.Model.add_portfolio"><code class="docutils literal notranslate"><span class="pre">Model.add_portfolio()</span></code></a></li>
+<li><a class="reference internal" href="#pystock.models.Model.calculate_fff_params"><code class="docutils literal notranslate"><span class="pre">Model.calculate_fff_params()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.models.Model.create_portfolio"><code class="docutils literal notranslate"><span class="pre">Model.create_portfolio()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.models.Model.expected_return_of_stock"><code class="docutils literal notranslate"><span class="pre">Model.expected_return_of_stock()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.models.Model.get_risk_free_rate"><code class="docutils literal notranslate"><span class="pre">Model.get_risk_free_rate()</span></code></a></li>
@@ -1122,9 +1184,11 @@ Assumes that the dataframe has column <cite>Date</cite> containing dates.</p>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.calculate_fff_params_one"><code class="docutils literal notranslate"><span class="pre">Portfolio.calculate_fff_params_one()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.change_benchmark"><code class="docutils literal notranslate"><span class="pre">Portfolio.change_benchmark()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.change_benchmark_frequency"><code class="docutils literal notranslate"><span class="pre">Portfolio.change_benchmark_frequency()</span></code></a></li>
+<li><a class="reference internal" href="#pystock.portfolio.Portfolio.download_fff_params"><code class="docutils literal notranslate"><span class="pre">Portfolio.download_fff_params()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.get_all_stock_params"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_all_stock_params()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.get_all_stock_returns"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_all_stock_returns()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.get_cov_matrix"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_cov_matrix()</span></code></a></li>
+<li><a class="reference internal" href="#pystock.portfolio.Portfolio.get_portfolio_return"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_portfolio_return()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.get_stock_params"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_stock_params()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.get_stock_return"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_stock_return()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.load_all"><code class="docutils literal notranslate"><span class="pre">Portfolio.load_all()</span></code></a></li>
@@ -1132,7 +1196,6 @@ Assumes that the dataframe has column <cite>Date</cite> containing dates.</p>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.load_one_stock"><code class="docutils literal notranslate"><span class="pre">Portfolio.load_one_stock()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.merge_all"><code class="docutils literal notranslate"><span class="pre">Portfolio.merge_all()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.merge_stock_with_benchmark"><code class="docutils literal notranslate"><span class="pre">Portfolio.merge_stock_with_benchmark()</span></code></a></li>
-<li><a class="reference internal" href="#pystock.portfolio.Portfolio.portfolio_return"><code class="docutils literal notranslate"><span class="pre">Portfolio.portfolio_return()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.remove_stocks"><code class="docutils literal notranslate"><span class="pre">Portfolio.remove_stocks()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.set_weights"><code class="docutils literal notranslate"><span class="pre">Portfolio.set_weights()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.portfolio.Portfolio.summary"><code class="docutils literal notranslate"><span class="pre">Portfolio.summary()</span></code></a></li>
@@ -1151,6 +1214,7 @@ Assumes that the dataframe has column <cite>Date</cite> containing dates.</p>
 </li>
 <li><a class="reference internal" href="#module-pystock.utils">pystock.utils module</a><ul>
 <li><a class="reference internal" href="#pystock.utils.bigger_frequency"><code class="docutils literal notranslate"><span class="pre">bigger_frequency()</span></code></a></li>
+<li><a class="reference internal" href="#pystock.utils.convert_str_to_date"><code class="docutils literal notranslate"><span class="pre">convert_str_to_date()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.utils.create_weight"><code class="docutils literal notranslate"><span class="pre">create_weight()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.utils.load_data"><code class="docutils literal notranslate"><span class="pre">load_data()</span></code></a></li>
 <li><a class="reference internal" href="#pystock.utils.merge_dfs"><code class="docutils literal notranslate"><span class="pre">merge_dfs()</span></code></a></li>

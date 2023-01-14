@@ -73,6 +73,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pystock.html#module-pystock.models">pystock.models module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.models.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.add_portfolio"><code class="docutils literal notranslate"><span class="pre">Model.add_portfolio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.calculate_fff_params"><code class="docutils literal notranslate"><span class="pre">Model.calculate_fff_params()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.create_portfolio"><code class="docutils literal notranslate"><span class="pre">Model.create_portfolio()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.expected_return_of_stock"><code class="docutils literal notranslate"><span class="pre">Model.expected_return_of_stock()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.models.Model.get_risk_free_rate"><code class="docutils literal notranslate"><span class="pre">Model.get_risk_free_rate()</span></code></a></li>
@@ -98,9 +99,11 @@
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.calculate_fff_params_one"><code class="docutils literal notranslate"><span class="pre">Portfolio.calculate_fff_params_one()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.change_benchmark"><code class="docutils literal notranslate"><span class="pre">Portfolio.change_benchmark()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.change_benchmark_frequency"><code class="docutils literal notranslate"><span class="pre">Portfolio.change_benchmark_frequency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.download_fff_params"><code class="docutils literal notranslate"><span class="pre">Portfolio.download_fff_params()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.get_all_stock_params"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_all_stock_params()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.get_all_stock_returns"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_all_stock_returns()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.get_cov_matrix"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_cov_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.get_portfolio_return"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_portfolio_return()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.get_stock_params"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_stock_params()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.get_stock_return"><code class="docutils literal notranslate"><span class="pre">Portfolio.get_stock_return()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.load_all"><code class="docutils literal notranslate"><span class="pre">Portfolio.load_all()</span></code></a></li>
@@ -108,7 +111,6 @@
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.load_one_stock"><code class="docutils literal notranslate"><span class="pre">Portfolio.load_one_stock()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.merge_all"><code class="docutils literal notranslate"><span class="pre">Portfolio.merge_all()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.merge_stock_with_benchmark"><code class="docutils literal notranslate"><span class="pre">Portfolio.merge_stock_with_benchmark()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.portfolio_return"><code class="docutils literal notranslate"><span class="pre">Portfolio.portfolio_return()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.remove_stocks"><code class="docutils literal notranslate"><span class="pre">Portfolio.remove_stocks()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.set_weights"><code class="docutils literal notranslate"><span class="pre">Portfolio.set_weights()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pystock.html#pystock.portfolio.Portfolio.summary"><code class="docutils literal notranslate"><span class="pre">Portfolio.summary()</span></code></a></li>
@@ -127,6 +129,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pystock.html#module-pystock.utils">pystock.utils module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.utils.bigger_frequency"><code class="docutils literal notranslate"><span class="pre">bigger_frequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.utils.convert_str_to_date"><code class="docutils literal notranslate"><span class="pre">convert_str_to_date()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.utils.create_weight"><code class="docutils literal notranslate"><span class="pre">create_weight()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.utils.load_data"><code class="docutils literal notranslate"><span class="pre">load_data()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="pystock.html#pystock.utils.merge_dfs"><code class="docutils literal notranslate"><span class="pre">merge_dfs()</span></code></a></li>
