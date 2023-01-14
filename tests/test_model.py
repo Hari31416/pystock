@@ -1,7 +1,3 @@
-import sys
-
-sys.path.append("/media/hari31416/Hari_SSD/Users/harik/Desktop/pystock")
-
 import os
 import pytest
 import pandas as pd
@@ -484,6 +480,7 @@ def test_optimize_fff3(final_model):
     assert res["variance"] < 1, "variance is not less than 2"
     assert res["weights"] is not None, "Weights is None"
     assert abs(sum(res["weights"]) - 1) < TOL, "Weights do not sum to 1"
+
 
 def test_optimize_fff5(final_model):
     model = copy.deepcopy(final_model)
