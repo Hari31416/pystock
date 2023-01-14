@@ -2,6 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/pystock0.svg)](https://badge.fury.io/py/pystock0)
 [![Downloads](https://static.pepy.tech/personalized-badge/pystock0?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/pystock0)
+![example event parameter](https://github.com/hari31416/pystock/actions/workflows/python-package.yml/badge.svg?event=push)
 
 A small python library for stock market analysis. Especially for portfolio optimization.
 
@@ -11,7 +12,7 @@ A small python library for stock market analysis. Especially for portfolio optim
 pip install pystock0
 ```
 
-> Note: The library is still in development, so the version number is 0. You will need to call `pip install pystock0` to install the library. However, you can import the library as `import pystock`.
+> Note: You will need to call `pip install pystock0` to install the library. However, you can import the library as `import pystock`. The library is still in development, so, a lot of changes will be made to the code.
 
 After installation, you can import the library as follows:
 
@@ -21,20 +22,20 @@ import pystock
 
 ## Usage
 
-The end goal of the library is to provide a simple interface for portfolio optimization. The library is still in development, so the interface is not yet stable. The following example shows how to use the library to optimize a portfolio of stocks.
+The end goal of the library is to provide a simple interface for portfolio optimization. The library is still in development, so the interface is not yet stable. For now, this is how you can use the library to optimize a portfolio of stocks.
 
 ```python
 from pystock.portfolio import Portfolio
 from pystock.models import Model
 
-#Creating the benchmark and stocks
+# Creating the benchmark and stocks
 benchmark_dir = "Data/GSPC.csv"
 benchmark_name = "S&P"
 
-stock_dirs = ["Data/AAPL.csv", "Data/MSFT.csv", "Data/GOOG.csv", "Data/TSLA.csv"]
-stock_names = ["AAPL", "MSFT", "GOOG", "TSLA"]
+stock_dirs = ["Data/AAPL.csv", "Data/MSFT.csv", "Data/GOOGL.csv", "Data/TSLA.csv"]
+stock_names = ["AAPL", "MSFT", "GOOGL", "TSLA"]
 
-#Setting the frequency to monthly
+# Setting the frequency to monthly
 frequency = "M"
 
 # Creating a Portfolio object
@@ -44,22 +45,20 @@ end_date = "2022-12-20"
 
 # Loading the data
 pt.load_benchmark(
-    columns=["Adj Close"],
-    rename_cols=["Close"],
+    columns=["Close"],
     start_date=start_date,
     end_date=end_date,
     frequency=frequency,
 )
 pt.load_all(
-    columns=["Adj Close"],
-    rename_cols=["Close"],
+    columns=["Close"],
     start_date=start_date,
     end_date=end_date,
     frequency=frequency,
 )
 
 # Creating a Model object and adding the portfolio
-model = Model()
+model = Model(frequency=frequency, risk_free_rate=0.33)
 model.add_portfolio(pt, weights="equal")
 
 # Optimizing the portfolio using CAPM
@@ -67,19 +66,20 @@ risk = 0.5
 model_ = "capm"
 res = model.optimize_portfolio(risk=risk, model=model_)
 print(res)
+
 ```
 
 ```output
 Optimized successfully.
-Expected return: 1.1155%
+Expected return: 1.1159%
 Variance: 0.5000%
 Expected weights:
 --------------------
-AAPL: 47.20%
+AAPL: 47.40%
 MSFT: 0.00%
-GOOG: 36.08%
-TSLA: 16.73%
-{'weights': array([0.4719528 , 0.        , 0.36076392, 0.16728327]), 'expected_return': 1.1154876799508255, 'variance': 0.5000100787030565, 'std': 0.7071139078699107}
+GOOGL: 35.83%
+TSLA: 16.77%
+{'weights': array([0.474 , 0.    , 0.3583, 0.1677]), 'expected_return': 1.115892062822632, 'variance': 0.5000278422222152, 'std': 0.707126468336616}
 ```
 
 ## More Examples
