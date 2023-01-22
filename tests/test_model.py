@@ -400,9 +400,9 @@ def test_create_portfolio_load(empty_model):
 
 def test_optimize_portfolio_err_fff_models(model_with_loaded_portfolio):
     model = copy.deepcopy(model_with_loaded_portfolio)
-    with pytest.raises(AttributeError):
+    with pytest.raises(ValueError):
         model.optimize_portfolio(model="fff3")
-    with pytest.raises(AttributeError):
+    with pytest.raises(ValueError):
         model.optimize_portfolio(model="fff5")
 
     assert isinstance(

@@ -1,7 +1,7 @@
-import pandas as pd
+import numpy as np
 from scipy.optimize import minimize
-import plotly.express as px
 
+from pystock.style import cprint
 from pystock.exceptions import *
 from pystock.utils import *
 from pystock.portfolio import *
@@ -24,6 +24,7 @@ class Model:
         self.frequency = frequency
         self.portfolio = None
         self.__risk_free_rate = risk_free_rate
+        self.__market_return = None
 
     def __getitem__(self, key):
         if not self.portfolio:
@@ -145,7 +146,7 @@ class Model:
             raise NoPortfolioCreated(
                 "No portfolio has been created yet. Use create_portfolio() to create one. Or use add_portfolio() to add one."
             )
-        print("Loading benchmark...")
+        cprint("Loading benchmark...", "green")
         self.portfolio.load_benchmark(
             columns=columns,
             rename_cols=rename_cols,
@@ -153,7 +154,7 @@ class Model:
             start_date=start_date,
             end_date=end_date,
         )
-        print("Loading stocks...")
+        cprint("Loading stocks...", "green")
         self.portfolio.load_all(
             columns=columns,
             rename_cols=rename_cols,
@@ -162,7 +163,7 @@ class Model:
             end_date=end_date,
         )
         if print_summary:
-            print("Calculating other results...")
+            cprint("Calculating other results...", "green")
             self.portfolio.summary(frequency=self.frequency, **kwargs)
 
     def create_portfolio(
@@ -341,11 +342,18 @@ class Model:
             raise ValueError(
                 "Stock does not have beta value. Please call self.portfolio.summary() to calculate it."
             )
-        try:
-            _ = stock.params
-        except AttributeError:
-            print(
-                "Warning. FFF params have not been calculated. Using fff3 or fff5 model will result in error. Call self.calculate_fff_params() to calculate it."
+
+        if model in ["fff3", "fff5"]:
+            try:
+                _ = stock.params
+            except AttributeError:
+                raise ValueError(
+                    "Stock does not have FFF params. Please call self.calculate_fff_params() to calculate it."
+                )
+
+        if self.__market_return is None:
+            self.market_return = 100 * self.portfolio.benchmark_return(
+                frequency=self.frequency, column="Close"
             )
 
         self.market_return = 100 * self.portfolio.benchmark_return(
@@ -462,59 +470,6 @@ class Model:
             self.portfolio_std(weights, self.portfolio.cov_matrix),
         )
 
-    def portfolio_frontier(self, model="capm"):
-        """
-        Plots the portfolio frontier for two stocks. Assumes that the portfolio has only two stocks.
-
-        Parameters
-        ----------
-        model : str
-            Model to use for calculating expected returns. Supported models are 'capm' and 'sim'
-
-        Returns
-        -------
-        None
-        """
-        if len(self.portfolio.stocks) != 2:
-            raise ValueError("Only 2 stocks are supported for now.")
-        weights1 = np.linspace(0, 1, 100)
-        weights2 = 1 - weights1
-        expected_returns = []
-        variances = []
-        for i in range(len(weights1)):
-            weight = np.array([weights1[i], weights2[i]])
-            return_, variance, _ = self.portfolio_info(weights=weight, model=model)
-            expected_returns.append(return_)
-            variances.append(variance)
-
-        variance = np.array(variances)
-        expected_returns = np.array(expected_returns)
-        assert (
-            len(variance) == len(expected_returns) == len(weights1) == len(weights2)
-        ), "Lengths of variance and expected returns are not equal."
-
-        plot_df = pd.DataFrame(
-            {
-                "variance": variance,
-                "expected_returns": expected_returns,
-                "weights1": weights1,
-                "weights2": weights2,
-            }
-        )
-        fig = px.line(
-            plot_df,
-            x="variance",
-            y="expected_returns",
-            labels={"x": "Standard deviation", "y": "Expected return"},
-            title="Efficient frontier",
-            custom_data=["weights1", "weights2"],
-        )
-
-        fig.update_traces(
-            hovertemplate="Standard deviation: %{x:.4f}%<br>Expected return: %{y:.4f}%<br>Apple weight: %{customdata[0]:.4f}<br>Google weight: %{customdata[1]:.4f}"
-        )
-        fig.show()
-
     def optimize_portfolio(self, model="capm", risk=0.5, can_short=False):
         """
         Optimize the portfolio using scipy.optimize.minimize
@@ -564,10 +519,10 @@ class Model:
         )
 
         if optimized["success"]:
-            print("Optimized successfully.")
+            cprint("Optimized successfully.\n", "green")
         else:
-            print(f"Optimization failed. {optimized['message']}")
-            print("Here are the last results:")
+            cprint(f"Optimization failed. {optimized['message']}", "fail")
+            cprint("Here are the last results:\n", "fail")
 
         weights = optimized["x"]
         weights = np.round(weights, 4)
@@ -576,12 +531,12 @@ class Model:
             weights=weights, model=model
         )
 
-        print(f"Expected return: {-optimized['fun']:.4f}%")
-        print(f"Variance: {variance:.4f}%")
-        print("Expected weights:")
-        print("-" * 20)
+        cprint(f"Expected return: {-optimized['fun']:4.4f}%", "cyan")
+        cprint(f"Risk: {variance:17.4f}%", "warning")
+        cprint("Expected weights:")
+        cprint("-" * 20)
         for i, stock in enumerate(self.portfolio.stocks):
-            print(f"{stock.name}: {weights[i]*100:.2f}%")
+            cprint(f"{stock.name:10}: {weights[i]*100:6.2f}%", "okblue")
 
         return {
             "weights": weights,

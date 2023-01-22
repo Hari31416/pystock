@@ -71,14 +71,16 @@ print(res)
 
 ```output
 Optimized successfully.
+
 Expected return: 1.1159%
-Variance: 0.5000%
+Risk:            0.5000%
 Expected weights:
 --------------------
-AAPL: 47.40%
-MSFT: 0.00%
-GOOGL: 35.83%
-TSLA: 16.77%
+AAPL      :  47.40%
+MSFT      :   0.00%
+GOOGL     :  35.83%
+TSLA      :  16.77%
+
 {'weights': array([0.474 , 0.    , 0.3583, 0.1677]), 'expected_return': 1.115892062822632, 'variance': 0.5000278422222152, 'std': 0.707126468336616}
 ```
 

@@ -1,10 +1,13 @@
 import pandas as pd
 import datetime
 from tabulate import tabulate
+import statsmodels.api as sm
+import numpy as np
+
 from pystock.utils import *
 from pystock.exceptions import *
 from pystock.fff import FamaFrenchFactors
-import statsmodels.api as sm
+from pystock.style import cprint
 
 FREQUENCY = {
     "D": "Daily",
@@ -1142,15 +1145,17 @@ class Portfolio:
         stock_summary["Beta"] = params["Beta"]
         stock_summary["Weight"] = self.weights
 
-        print("Portfolio Summary")
-        print("*****************\n")
-        print(str(self))
-        print("Here are the summary of stocks in the portfolio")
-        print(tabulate(stock_summary, headers="keys", tablefmt="psql"))
-        print("The covariance matrix is as follows")
-        print(tabulate(self.cov_matrix, headers="keys", tablefmt="psql"))
-        print(f"Portfolio Return: {self.portfolio_return}")
-        print(f"Portfolio Volatility: {self.portfolio_volatility}")
+        cprint("Portfolio Summary", "header")
+        cprint("*****************\n")
+        cprint("The Portfolio", "header")
+        cprint(str(self), "okgreen")
+        cprint("\nHere are the summary of stocks in the portfolio:")
+        cprint(tabulate(stock_summary, headers="keys", tablefmt="psql"), "okblue")
+        cprint("\nThe covariance matrix is as follows:")
+        cprint(tabulate(self.cov_matrix, headers="keys", tablefmt="psql"), "okblue")
+        cprint("\nPortfolio return and risk assuming the given weights:")
+        cprint(f"Portfolio Return: {self.portfolio_return:6.4f}", "cyan")
+        cprint(f"Portfolio Risk: {self.portfolio_volatility:8.4f}", "warning")
 
     def download_fff_params(
         self,
@@ -1208,7 +1213,7 @@ class Portfolio:
             print(f"Calculating Fama-French factors for {stock.name}")
         _ = stock.load_fff(factors=factors, directory=directory, frequency=frequency)
         fff_params = stock.calculate_fff(column=column, verbose=verbose)
-        
+
         fff_params["rf"] = 1.0
         self.stock_fff_params["Coefficients"] = list(stock.params.index)
         self.stock_fff_params[stock.name] = fff_params
@@ -1242,7 +1247,7 @@ class Portfolio:
             Frequency of the data, by default "M"
         column : str, optional
             Column to use, by default "Close"
-        
+
         Raises
         ------
         ValueError
