@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Welcome to pystock &#8212; pystock 0.1.0 documentation</title>
+    <title>Welcome to pystock &#8212; pystock 0.2.3 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
@@ -30,7 +30,7 @@
         <li class="right" >
           <a href="modules.html" title="pystock"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pystock 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">pystock 0.2.3 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Welcome to pystock</a></li> 
       </ul>
     </div>  
@@ -56,6 +56,7 @@
 <h1>pystock<a class="headerlink" href="#pystock" title="Permalink to this heading">¶</a></h1>
 <a class="reference external image-reference" href="https://badge.fury.io/py/pystock0"><img alt="PyPI version" src="https://badge.fury.io/py/pystock0.svg" /></a>
 <a class="reference external image-reference" href="https://pepy.tech/project/pystock0"><img alt="Downloads" src="https://static.pepy.tech/personalized-badge/pystock0?period=total&amp;units=international_system&amp;left_color=grey&amp;right_color=brightgreen&amp;left_text=Downloads" /></a>
+<a class="reference external image-reference" href="https://github.com/hari31416/pystock/actions/workflows/python-package.yml/badge.svg?event=push"><img alt="example event parameter" src="https://github.com/hari31416/pystock/actions/workflows/python-package.yml/badge.svg?event=push" /></a>
 <p>A small python library for stock market analysis. Especially for portfolio optimization.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
@@ -63,7 +64,7 @@
 </pre></div>
 </div>
 <blockquote>
-<div><p>Note: The library is still in development, so the version number is 0. You will need to call <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pystock0</span></code> to install the library. However, you can import the library as <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pystock</span></code>.</p>
+<div><p>Note: You will need to call <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pystock0</span></code> to install the library. However, you can import the library as <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pystock</span></code>. The library is still in development, so, a lot of changes will be made to the code.</p>
 </div></blockquote>
 <p>After installation, you can import the library as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pystock</span>
@@ -72,18 +73,18 @@
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
-<p>The end goal of the library is to provide a simple interface for portfolio optimization. The library is still in development, so the interface is not yet stable. The following example shows how to use the library to optimize a portfolio of stocks.</p>
+<p>The end goal of the library is to provide a simple interface for portfolio optimization. The library is still in development, so the interface is not yet stable. For now, this is how you can use the library to optimize a portfolio of stocks.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pystock.portfolio</span> <span class="kn">import</span> <span class="n">Portfolio</span>
 <span class="kn">from</span> <span class="nn">pystock.models</span> <span class="kn">import</span> <span class="n">Model</span>
 
-<span class="c1">#Creating the benchmark and stocks</span>
+<span class="c1"># Creating the benchmark and stocks</span>
 <span class="n">benchmark_dir</span> <span class="o">=</span> <span class="s2">&quot;Data/GSPC.csv&quot;</span>
 <span class="n">benchmark_name</span> <span class="o">=</span> <span class="s2">&quot;S&amp;P&quot;</span>
 
-<span class="n">stock_dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Data/AAPL.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;Data/MSFT.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;Data/GOOG.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;Data/TSLA.csv&quot;</span><span class="p">]</span>
-<span class="n">stock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;MSFT&quot;</span><span class="p">,</span> <span class="s2">&quot;GOOG&quot;</span><span class="p">,</span> <span class="s2">&quot;TSLA&quot;</span><span class="p">]</span>
+<span class="n">stock_dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Data/AAPL.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;Data/MSFT.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;Data/GOOGL.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;Data/TSLA.csv&quot;</span><span class="p">]</span>
+<span class="n">stock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;MSFT&quot;</span><span class="p">,</span> <span class="s2">&quot;GOOGL&quot;</span><span class="p">,</span> <span class="s2">&quot;TSLA&quot;</span><span class="p">]</span>
 
-<span class="c1">#Setting the frequency to monthly</span>
+<span class="c1"># Setting the frequency to monthly</span>
 <span class="n">frequency</span> <span class="o">=</span> <span class="s2">&quot;M&quot;</span>
 
 <span class="c1"># Creating a Portfolio object</span>
@@ -93,22 +94,20 @@
 
 <span class="c1"># Loading the data</span>
 <span class="n">pt</span><span class="o">.</span><span class="n">load_benchmark</span><span class="p">(</span>
-    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Adj Close&quot;</span><span class="p">],</span>
-    <span class="n">rename_cols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span>
     <span class="n">start_date</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
     <span class="n">end_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
     <span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">pt</span><span class="o">.</span><span class="n">load_all</span><span class="p">(</span>
-    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Adj Close&quot;</span><span class="p">],</span>
-    <span class="n">rename_cols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span>
     <span class="n">start_date</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
     <span class="n">end_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
     <span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># Creating a Model object and adding the portfolio</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span> <span class="n">risk_free_rate</span><span class="o">=</span><span class="mf">0.33</span><span class="p">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add_portfolio</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
 
 <span class="c1"># Optimizing the portfolio using CAPM</span>
@@ -119,15 +118,17 @@
 </pre></div>
 </div>
 <div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">Optimized successfully.</span>
-<span class="go">Expected return: 1.1155%</span>
-<span class="go">Variance: 0.5000%</span>
+
+<span class="go">Expected return: 1.1159%</span>
+<span class="go">Risk:            0.5000%</span>
 <span class="go">Expected weights:</span>
 <span class="go">--------------------</span>
-<span class="go">AAPL: 47.20%</span>
-<span class="go">MSFT: 0.00%</span>
-<span class="go">GOOG: 36.08%</span>
-<span class="go">TSLA: 16.73%</span>
-<span class="go">{&#39;weights&#39;: array([0.4719528 , 0.        , 0.36076392, 0.16728327]), &#39;expected_return&#39;: 1.1154876799508255, &#39;variance&#39;: 0.5000100787030565, &#39;std&#39;: 0.7071139078699107}</span>
+<span class="go">AAPL      :  47.40%</span>
+<span class="go">MSFT      :   0.00%</span>
+<span class="go">GOOGL     :  35.83%</span>
+<span class="go">TSLA      :  16.77%</span>
+
+<span class="go">{&#39;weights&#39;: array([0.474 , 0.    , 0.3583, 0.1677]), &#39;expected_return&#39;: 1.115892062822632, &#39;variance&#39;: 0.5000278422222152, &#39;std&#39;: 0.707126468336616}</span>
 </pre></div>
 </div>
 </section>
@@ -209,7 +210,7 @@
         <li class="right" >
           <a href="modules.html" title="pystock"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pystock 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">pystock 0.2.3 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Welcome to pystock</a></li> 
       </ul>
     </div>

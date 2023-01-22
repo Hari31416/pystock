@@ -10,8 +10,8 @@ project = "pystock"
 copyright = "2023, Harikesh Kushwaha"
 author = "Harikesh Kushwaha"
 
-version = "0.1.0"
-release = "0.1.0"
+version = "0.2.3"
+release = "0.2.3"
 
 import os
 import sys
