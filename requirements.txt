@@ -6,3 +6,4 @@ requests
 scipy
 statsmodels
 tabulate
+tqdm #Progress bar

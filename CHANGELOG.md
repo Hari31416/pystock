@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.3.0] - 2023-03-15
+
+### Added
+
+- Added the `frontier` module for plotting efficient frontier.
+
+### Changed
+
+- `tqdm` is now a dependency.
+
 ## [0.2.3] - 2023-01-22
 
 ### Added

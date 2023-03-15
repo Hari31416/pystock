@@ -352,19 +352,15 @@ class Model:
                 )
 
         if self.__market_return is None:
-            self.market_return = 100 * self.portfolio.benchmark_return(
+            self.__market_return = 100 * self.portfolio.benchmark_return(
                 frequency=self.frequency, column="Close"
             )
-
-        self.market_return = 100 * self.portfolio.benchmark_return(
-            frequency=self.frequency, column="Close"
-        )
         if model == "capm":
-            _exp_return = self._capm_expected_return(stock.beta, self.market_return)
+            _exp_return = self._capm_expected_return(stock.beta, self.__market_return)
 
         elif model == "sim":
             _exp_return = self._sim_expected_return(
-                stock.alpha, stock.beta, self.market_return
+                stock.alpha, stock.beta, self.__market_return
             )
 
         elif model == "fff5":

@@ -1219,8 +1219,9 @@ class Portfolio:
         self.stock_fff_params[stock.name] = fff_params
 
         if verbose:
-            print("Done. Here are the parameters")
-            print(tabulate(fff_params, headers="keys", tablefmt="psql"))
+            cprint("Here are the FFF parameters")
+            cprint(tabulate(self.stock_fff_params, headers="keys", tablefmt="psql"), "okblue")
+
         if not isinstance(self.mean_values, pd.Series):
             self.mean_values = stock.fff.calculate_mean_values()
         return fff_params
@@ -1277,5 +1278,5 @@ class Portfolio:
                 verbose=verbose,
                 download=False,
             )
-        print("Done. Here are the parameters")
-        print(tabulate(self.stock_fff_params, headers="keys", tablefmt="psql"))
+        cprint("Here are the FFF parameters")
+        cprint(tabulate(self.stock_fff_params, headers="keys", tablefmt="psql"), "okblue")

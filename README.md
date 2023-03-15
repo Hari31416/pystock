@@ -86,7 +86,7 @@ TSLA      :  16.77%
 
 ## More Examples
 
-For more examples, please refer to the notebook [Working_With_pystock.ipynb](https://github.com/Hari31416/pystock/blob/main/Working_With_pystock.ipynb). Also have a look at [Downloading_Data.ipynb](https://github.com/Hari31416/pystock/blob/main/Downloading_Data.ipynb).
+For more examples, please refer to the notebook [Working_With_pystock.ipynb](https://github.com/Hari31416/pystock/blob/main/Working_With_pystock.ipynb). Also have a look at [Downloading_Data.ipynb](https://github.com/Hari31416/pystock/blob/main/Downloading_Data.ipynb). Please also have a look at [Working_With_frontier.ipynb](https://github.com/Hari31416/pystock/blob/main/Working_With_frontier.ipynb) to see how to use the `frontier` module to plot efficient frontiers.
 
 ## Documentation
 
